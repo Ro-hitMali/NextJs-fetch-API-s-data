@@ -10,12 +10,6 @@ const NameForm = () => {
 
   useEffect(() => {
     const fetchData = async () => {
-      if (!name) {
-        setAge("");
-        setNationality("");
-        setGender("");
-        return;
-      }
       try {
         const agifyResponse = await fetch(
           `https://api.agify.io/?name=${name}`,
@@ -30,6 +24,13 @@ const NameForm = () => {
         setAge(agifyResponse.age);
         setNationality(nationalizeResponse.country[0]?.country_id);
         setGender(genderizeResponse.gender);
+
+        if (!name) {
+          setAge("");
+          setNationality("");
+          setGender("");
+          return;
+        }
       } catch (error) {
         console.error("API request failed", error);
       }
